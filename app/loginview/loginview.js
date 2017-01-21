@@ -9,6 +9,12 @@ angular.module('myApp.loginview', ['ngRoute'])
   });
 }])
 
-.controller('LoginController', [function() {
-
+.controller('LoginController', ['$scope', '$location', '$route', function($scope, $location, $route) {
+  $scope.onLogin = function() {
+    console.log("YOLO");
+  }
+  $scope.onRegister = function() {
+    console.log("does it work?")
+    $location.path("/register");
+  }
 }]);

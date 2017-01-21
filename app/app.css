@@ -1,1 +1,17 @@
 /* app css stylesheet */
+.banner {
+  text-align: center;
+  margin-top: 125px;
+  margin-bottom: 30px;
+}
+form {
+  text-align: center;
+  /*padding-left: 250px;
+  padding-right: 250px;*/
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 500px;
+}
+.btn-stretch {
+  width: 100%;
+}
