@@ -11,7 +11,8 @@ angular.module('myApp.loginview', ['ngRoute'])
 
 .controller('LoginController', ['$scope', '$location', '$route', function($scope, $location, $route) {
   $scope.onLogin = function() {
-    console.log("YOLO");
+    //move to main page
+    $location.path("/main");
   }
   $scope.onRegister = function() {
     console.log("does it work?")
