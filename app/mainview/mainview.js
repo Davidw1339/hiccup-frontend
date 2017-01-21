@@ -10,5 +10,11 @@ angular.module('myApp.mainview', ['ngRoute'])
 }])
 
 .controller('MainController', ['$scope', '$location', '$route', function($scope, $location, $route) {
-  
+  $scope.liveposts = [
+    {
+      username: "hi boy",
+      text: "yelloooo"
+    }
+  ]
+
 }]);

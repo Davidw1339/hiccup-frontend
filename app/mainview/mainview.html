@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" id="topnav">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -25,12 +25,27 @@
 </nav>
 <div class="container-fluid full-height">
   <div class="row full-height">
-    <div class="col-sm-4 full-height"></div>
-    <div class="col-sm-8 full-height">
-      <ul class="nav nav-tabs">
-        <li class="active"><a href="#">Live Feed</a></li>
-        <li><a href="#">Idea Feed</a></li>
+    <div class="no-pad col-sm-4 full-height"></div>
+    <div class="no-pad col-sm-8 full-height" id="feed">
+      <ul class="nav nav-tabs panel-tab">
+        <li class="active"><a data-toggle="tab" data-target="#live">Live Feed</a></li>
+        <li><a data-toggle="tab" data-target="#idea">Idea Feed</a></li>
       </ul>
+      <div class="tab-content">
+        <div id="live" class="tab-pane fade in active">
+          <ul class="post-list">
+            <!-- <li ng-repeat="post in liveposts" class="post">{{post}}</li> -->
+            <li ng-repeat="post in liveposts">
+              <div class="post"><strong>{{post.username}}</strong><br>{{post.text}}</div>
+            </li>
+          </ul>
+          <input type="text" class="form-control bottom" id="new-post" placeholder="New Post"/>
+        </div>
+        <div id="idea" class="tab-pane fade">
+          <h3>Menu 1</h3>
+          <p>Some content in menu 1.</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
