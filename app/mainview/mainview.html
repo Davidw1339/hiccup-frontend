@@ -14,7 +14,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#" class="large-link">Slack</a></li>
+        <li><a href="http://boilermake2017.slack.com" class="large-link">Slack</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#" class="large-link">Logout</a></li>
@@ -41,11 +41,14 @@
       </div>
       <div class="panel panel-success" style="border: 1px solid #4caf50;">
         <div class="panel-heading">
-          <h3 class="panel-title">Schedule<button class="btn btn-success right-btn">+</button></h3>
+          <h3 class="panel-title">Schedule
+            <button type="button" class="btn btn-success right-btn" data-toggle="modal" data-target="#scheduleModal">+</button></h3>
 
         </div>
-        <div class="panel-body">
-          Panel content
+        <div class="panel-body" style="height: 80%">
+          <li ng-repeat="event in schedule">
+            <strong style="font-size: 16px;">{{event.text}}</strong><br>{{event.time}}
+          </li>
         </div>
       </div>
       <div class="btn btn-warning" style="width: 100%">
@@ -117,6 +120,32 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="newAnnouncement()">Save</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="scheduleModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">New Event</h4>
+          <hr>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            Name: <input type="text" class="form-control" id="eventbox" placeholder="Event Name"/>
+          </div>
+          <div class="form-group">
+            Time: <input type="datetime-local" class="form-control" id="timebox" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="newEvent()">Save</button>
         </div>
       </div>
 

@@ -11,9 +11,10 @@ angular.module('myApp.mainview', ['ngRoute'])
 
 .controller('MainController', ['$scope', '$location', '$route', '$http', 'authentication', function($scope, $location, $route, $http, authentication) {
   // Control who gets what permissions and whether we need to log in
+
   var user = authentication.getUser();
   if(user.name == "none") {
-    // $location.path('/login');
+    $location.path('/login');
   }
   else {
     if(user.type != "hacker") {
@@ -24,7 +25,6 @@ angular.module('myApp.mainview', ['ngRoute'])
       $('.right-btn').show();
     }
   }
-  $('.right-btn').show();
 
   $scope.livepolls = [];
   $scope.liveposts = [];
@@ -83,6 +83,28 @@ angular.module('myApp.mainview', ['ngRoute'])
     }, function errorCallback(response) {
       console.log("LOL RIP YOU SUCK");
     });
+  //get events for schedule
+  $http({
+    method: 'GET',
+    url: 'http://localhost:5000/get_event'
+  }).then(function successCallback(response) {
+      console.log(response.data);
+      response.data.forEach(function(event) {
+        $scope.schedule.push({
+          'text': event.text,
+          'time': event.time
+        });
+      });
+      $scope.schedule.sort(function(a,b){
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(b.time) - new Date(a.time);
+      });
+      console.log("new sorted schedule " + $scope.schedule);
+    }, function errorCallback(response) {
+      console.log("LOL RIP YOU SUCK");
+    });
+
   console.log(authentication);
 
   $('#new-post').on('keyup', function(e) {
@@ -98,9 +120,41 @@ angular.module('myApp.mainview', ['ngRoute'])
     }
   });
 
+  $scope.newEvent = function () {
+    var text = $("#eventbox").val()
+    var time = $("#timebox").val()
+    var event = {
+      text: text,
+      time: time
+    }
+    $("#eventbox").val("");
+    $("#timebox").val("");
+    $http({
+      method: 'POST',
+      url: 'http://localhost:5000/add_event',
+      // url: 'http://hiccupbackend.herokuapp.com/add_message',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: event,
+      transformRequest: function(obj) {
+            var str = [];
+            for(var p in obj)
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            return str.join("&");
+          }
+    }).then(function success(response) {
+        console.log("success");
+    }, function error(response) {
+      console.log("rip, we got register error");
+    });
+    $scope.schedule.push(event);
+  }
+
   $scope.newAnnouncement = function() {
+    var text = $("#announcebox").val()
     var announcement = {
-      text: $("#announcebox").val(),
+      text: text,
       time: Date.now()
     };
     $("#announcebox").val("");
@@ -126,8 +180,8 @@ angular.module('myApp.mainview', ['ngRoute'])
     var time = new Date(0);
     time.setUTCMilliseconds(announcement.time);
     time = time.toString("h:mm a").substring(0, 25);
-    announcement.time = time;
-    $scope.announcements.push(announcement);
+    // announcement.time = time;
+    $scope.announcements.push({text: text, time: time});
   }
 
   $scope.addPoll = function() {
