@@ -11,10 +11,7 @@ angular.module('myApp.mainview', ['ngRoute'])
 
 .controller('MainController', ['$scope', '$location', '$route', '$http', 'authentication', function($scope, $location, $route, $http, authentication) {
   // console.log(authentication.myFunc(255));
-  $scope.livepolls = [{
-    title: "Is advaith useless?",
-    text: "Please vote below..."
-  }];
+  $scope.livepolls = [];
   $scope.liveposts = [];
   $http({
     method: 'GET',
@@ -38,6 +35,7 @@ angular.module('myApp.mainview', ['ngRoute'])
       console.log(response.data);
       response.data.forEach(function(poll) {
         $scope.livepolls.push({
+          'id': poll.id,
           'title': poll.title,
           'text': poll.text,
           'up': poll.up,
@@ -65,7 +63,17 @@ angular.module('myApp.mainview', ['ngRoute'])
   $scope.addPoll = function() {
     var title = $("#poll_title").val();
     var text = $("#poll_text").val();
+    $("#poll_title").val() = "";
+    $("#poll_text").val() = "";
+    var id = 0;
+    if($scope.livepolls.length > 0) {
+      id = $scope.livepolls[$scope.livepolls.length - 1].id + 1;
+    }
+    else {
+      id = 0;
+    }
     var poll = {
+      id: id,
       title: title,
       text: text
     };
@@ -118,12 +126,13 @@ angular.module('myApp.mainview', ['ngRoute'])
 
   $scope.pressLike = function(index) {
     console.log(index);
-    livepolls[index].up += 1;
+    $scope.livepolls[index].up += 1;
+    
   }
 
   $scope.pressDislike = function(index) {
     console.log(index);
-    livepolls[index].down += 1;
+    $scope.livepolls[index].down += 1;
   }
 
 }]);
