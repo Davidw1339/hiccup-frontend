@@ -24,19 +24,19 @@
   </div><!-- /.container-fluid -->
 </nav>
 <div class="container-fluid col-sm-4" style="display:inline;padding-right: 0px;">
-  <ul class="list-group">
-    <li class="list-group-item">Company 1</li>
-    <li class="list-group-item">Company 2</li>
-    <li class="list-group-item">Company 3</li>
+  <ul class="list-group" ng-click="$event.preventDefault()">
+    <li class="list-group-item"><a href="#" style="display:block" ng-click="companyNum = 0">Company 1</a></li>
+    <li class="list-group-item"><a href="#" style="display:block" ng-click="companyNum = 1">Company 2</a></li>
+    <li class="list-group-item"><a href="#" style="display:block" ng-click="companyNum = 2">Company 3</a></li>
   </ul>
 </div>
 <!-- To be replaced with backend data -->
 <div class="container-fluid col-sm-8" style="display:inline">
   <div class="row">
-    <img src="../images/githubStockPic.png" class="img-circle" style="display: block;margin: auto;width: 20%;">
+    <img src="{{companyArray[companyNum].CompanyImageURL}}" class="img-circle" style="display: block;margin: auto;width: 20%;">
   </div>
-  <h2 style="text-align: center;">Company 1 Info</h2>
-  <h4>About Us:</h4>
-  <h4>API's:</h4>
-  <h4>Prizes/Contests:</h4>
+  <h2 style="text-align: center;">{{companyArray[companyNum].CompanyName}}</h2>
+  <h4>About Us: {{companyArray[companyNum].AboutUs}}</h4>
+  <h4>API's: {{companyArray[companyNum].APIs}}</h4>
+  <h4>Prizes/Contests: {{companyArray[companyNum].PrizesContests}}</h4>
 </div>
