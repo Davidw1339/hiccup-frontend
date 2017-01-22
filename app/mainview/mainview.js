@@ -191,7 +191,7 @@ angular.module('myApp.mainview', ['ngRoute'])
     $("#poll_text").val("");
     var id = 0;
     if($scope.livepolls.length > 0) {
-      id = $scope.livepolls[$scope.livepolls.length - 1].id + 1;
+      id = parseInt($scope.livepolls[$scope.livepolls.length - 1].id) + 1;
     }
     else {
       id = 0;
