@@ -11,12 +11,17 @@ angular.module('myApp.mainview', ['ngRoute'])
 
 .controller('MainController', ['$scope', '$location', '$route', '$http', 'authentication', function($scope, $location, $route, $http, authentication) {
   // console.log(authentication.myFunc(255));
-  if(authentication.getUser().name == "none") {
-    $location.path('/login');
+  var user = authentication.getUser();
+  if(user.name == "none") {
+    // $location.path('/login');
   }
   else {
-    if(authentication.getUser().type != "hacker") {
+    if(user.type != "hacker") {
       $('#poll_form').show();
+    }
+    if(user.type == "organizer") {
+      console.log("Show the buttons");
+      $('.right-btn').show();
     }
   }
 

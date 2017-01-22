@@ -72,6 +72,18 @@ form {
 .panel-body {
   overflow: auto;
 }
+/*.panel-header {
+  position: relative;
+}*/
+.right-btn {
+  /*position: absolute;*/
+  padding: 0px 8px 0px 8px;
+  float:right;
+  margin-top: -5px;
+  display: none;
+  /*right: 10px;*/
+  /*top: 5px;*/
+}
 .bottom {
   position: fixed;
   bottom: 5px;
