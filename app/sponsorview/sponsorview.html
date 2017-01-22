@@ -31,23 +31,23 @@
   </ul>
 </div>
 <!-- To be replaced with backend data -->
-<div class="container-fluid col-sm-8" id="sponsor-info" style="overflow-y:scroll; position:relative; top: 0; height: 100%; bottom:0;">
+<div class="container-fluid col-sm-8" id="sponsor-info" style="height:100%;">
   <div class="row">
     <img src="{{companyArray[companyNum].CompanyImageURL}}" class="img-circle" style="display: block;margin: auto;width: 20%;">
   </div>
   <h2 style="text-align: center;"><strong>{{companyArray[companyNum].CompanyName}}</strong></h2>
   <!-- About Us -->
-  <div class="panel panel-danger" style="padding-left:0px;padding-right:0px;">
+  <div class="panel panel-danger" style="padding-left:0px;padding-right:0px;margin-bottom: 10px;margin-top: 10px;height:auto;">
     <div class="panel-heading">About Us</div>
     <div class="panel-body">{{companyArray[companyNum].AboutUs}}</div>
   </div>
 <!-- API's -->
-  <div class="panel panel-primary" style="padding-left:0px;padding-right:0px;">
+  <div class="panel panel-primary" style="padding-left:0px;padding-right:0px;margin-bottom: 10px;margin-top: 10px;height:auto;">
     <div class="panel-heading">API's</div>
     <div class="panel-body">{{companyArray[companyNum].APIs}}</div>
   </div>
 <!-- Prizes/Contests -->
-  <div class="panel panel-info">
+  <div class="panel panel-info" style="margin-top: 10px;margin-bottom: 10px;height:auto;">
     <div class="panel-heading">Prizes/Contests</div>
     <div class="panel-body">{{companyArray[companyNum].PrizesContests}}</div>
   </div>
