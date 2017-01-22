@@ -11,13 +11,43 @@ angular.module('myApp.mainview', ['ngRoute'])
 
 .controller('MainController', ['$scope', '$location', '$route', '$http', 'authentication', function($scope, $location, $route, $http, authentication) {
   // console.log(authentication.myFunc(255));
+  $scope.livepolls = [{
+    title: "Is advaith useless?",
+    text: "Please vote below..."
+  }];
+  $scope.liveposts = [];
+  $http({
+    method: 'GET',
+    url: 'http://localhost:5000/get_messages'
+  }).then(function successCallback(response) {
+      console.log(response.data);
+      response.data.forEach(function(message) {
+        $scope.liveposts.push({
+          'username': message.email,
+          'text': message.text
+        });
+      });
+    }, function errorCallback(response) {
+      console.log("LOL RIP YOU SUCK");
+    });
+
+  $http({
+    method: 'GET',
+    url: 'http://localhost:5000/get_poll'
+  }).then(function successCallback(response) {
+      console.log(response.data);
+      response.data.forEach(function(poll) {
+        $scope.livepolls.push({
+          'title': poll.title,
+          'text': poll.text,
+          'up': poll.up,
+          'down': poll.down
+        });
+      });
+    }, function errorCallback(response) {
+      console.log("LOL RIP YOU SUCK");
+    });
   console.log(authentication);
-  $scope.liveposts = [
-    {
-      username: "hi boy",
-      text: "yelloooo"
-    }
-  ];
 
   $('#new-post').on('keyup', function(e) {
     if (e.keyCode === 13) {
@@ -32,10 +62,68 @@ angular.module('myApp.mainview', ['ngRoute'])
     }
   });
 
+  $scope.addPoll = function() {
+    var title = $("#poll_title").val();
+    var text = $("#poll_text").val();
+    var poll = {
+      title: title,
+      text: text
+    };
+    $http({
+      method: 'POST',
+      url: 'http://localhost:5000/add_poll',
+      // url: 'http://hiccupbackend.herokuapp.com/add_message',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: poll,
+      transformRequest: function(obj) {
+            var str = [];
+            for(var p in obj)
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            return str.join("&");
+          }
+    }).then(function success(response) {
+        console.log("success");
+    }, function error(response) {
+      console.log("rip, we got register error");
+    });
+    $scope.livepolls.push(poll);
+  }
+
   $scope.addPost = function(newPost) {
+    $http({
+      method: 'POST',
+      url: 'http://localhost:5000/add_message',
+      // url: 'http://hiccupbackend.herokuapp.com/add_message',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: newPost,
+      transformRequest: function(obj) {
+            var str = [];
+            for(var p in obj)
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            return str.join("&");
+          }
+    }).then(function success(response) {
+      console.log("success");
+    }, function error(response) {
+      console.log("rip, we got register error");
+    });
     $scope.liveposts.push(newPost);
     console.log($scope.liveposts);
     $scope.$apply();
+  }
+
+  $scope.pressLike = function(index) {
+    console.log(index);
+    livepolls[index].up += 1;
+  }
+
+  $scope.pressDislike = function(index) {
+    console.log(index);
+    livepolls[index].down += 1;
   }
 
 }]);

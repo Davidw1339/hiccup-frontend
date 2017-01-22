@@ -17,7 +17,7 @@ angular.module('myApp.loginview', ['ngRoute'])
     console.log(email + " " + password);
     $http({
       method: 'GET',
-      url: 'http://127.0.0.1:5000/login?email=' + email + "&password=" + password
+      url: 'http://hiccupbackend.herokuapp.com/login?email=' + email + "&password=" + password
     }).then(function successCallback(response) {
         if(response.data != "no-auth") {
           authentication.setUser({

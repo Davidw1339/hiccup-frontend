@@ -31,7 +31,7 @@ angular.module('myApp.registerview', ['ngRoute'])
     console.log(email + " " + password + " " + $scope.type);
     var regRequest = {
       method: 'POST',
-      url: 'http://localhost:5000/register',
+      url: 'http://hiccupbackend.herokuapp.com/register',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },

@@ -42,13 +42,28 @@ form {
 .post {
   padding: 10px;
   border-radius: 5px;
-  box-shadow: 1px 3px 2px #888888;
+  box-shadow: 1px 1px 2px #888888;
   background-color: #f5f5f5;
   margin-bottom: 5px;
   word-wrap:break-word;
 }
+.poll {
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px #888888;
+  background-color: #f5f5f5;
+  font-size: 18px;
+  margin-bottom: 5px;
+  word-wrap:break-word;
+  text-align: center;
+  padding-bottom: 80px;
+}
 .panel-tab {
   border-bottom: 1px solid #dddddd;
+}
+.like-btn {
+  padding: 1px 50px 1px 50px;
+  font-size: 40px;
 }
 .panel {
   margin-top: 15px;

@@ -68,7 +68,7 @@
     <div class="no-pad col-sm-8 full-height" id="feed">
       <ul class="nav nav-tabs panel-tab">
         <li class="active"><a data-toggle="tab" data-target="#live">Live Feed</a></li>
-        <li><a data-toggle="tab" data-target="#idea">Idea Feed</a></li>
+        <li><a data-toggle="tab" data-target="#polls">Live Polls</a></li>
       </ul>
       <div class="tab-content">
         <div id="live" class="tab-pane fade in active">
@@ -80,9 +80,31 @@
           </ul>
           <input type="text" class="form-control bottom" id="new-post" placeholder="New Post"/>
         </div>
-        <div id="idea" class="tab-pane fade">
-          <h3>Menu 1</h3>
-          <p>Some content in menu 1.</p>
+
+        <div id="polls" class="tab-pane fade">
+          <ul class="post-list">
+            <!-- <li ng-repeat="post in liveposts" class="post">{{post}}</li> -->
+            <li ng-repeat="poll in livepolls">
+              <div class="poll"><strong>{{poll.title}}</strong>
+                <br>{{poll.text}}<br>
+                <button class="btn btn-primary like-btn" ng-click="pressLike($index)" style="float: left;">👍</button>
+                <button class="btn btn-primary like-btn" ng-click="pressDislike($index)" style="float: right;">👎</button>
+              </div>
+            </li>
+          </ul>
+          <form class="bottom">
+            <div class="row">
+              <div class="col-xs-5">
+                <input type="text" id="poll_title" placeholder="Poll Title"/>
+              </div>
+              <div class="col-xs-5">
+                <input type="text" id="poll_text" placeholder="Poll Description"/>
+              </div>
+              <div class="col-xs-2">
+                <button type="button" class="btn btn-primary" style="margin-left: 50px;" id="new-poll" ng-click="addPoll()">Post!</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
