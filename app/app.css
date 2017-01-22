@@ -27,8 +27,13 @@ form {
 .no-pad {
   padding: 0px;
 }
+.tab-content {
+  height: 100%;
+}
 .tab-pane {
   padding: 12px;
+  overflow-y: scroll;
+  height: 75%;
 }
 .post-list {
   padding-left: 0px;
@@ -39,9 +44,14 @@ form {
   border-radius: 5px;
   box-shadow: 1px 3px 2px #888888;
   background-color: #f5f5f5;
+  margin-bottom: 5px;
 }
 .panel-tab {
   border-bottom: 1px solid #dddddd;
+}
+.panel {
+  margin-top: 15px;
+  height: 35%;
 }
 .bottom {
   position: fixed;
