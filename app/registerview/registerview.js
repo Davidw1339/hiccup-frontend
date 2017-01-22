@@ -10,7 +10,7 @@ angular.module('myApp.registerview', ['ngRoute'])
 }])
 
 .controller('RegisterController', ['$scope', '$location', '$route', '$http', function($scope, $location, $route, $http) {
-  $scope.type = "null";
+  $scope.type = "hacker";
   $scope.hacker = function() {
     $scope.type = "hacker";
     $scope.onRegister();
@@ -26,12 +26,14 @@ angular.module('myApp.registerview', ['ngRoute'])
 
   $scope.onRegister = function() {
     //move to main page
+    $scope.type = $('input[name="type"]:checked').val();
+    console.log($scope.type);
     var email = $('#inputEmail').val();
     var password = $('#inputPassword').val();
     console.log(email + " " + password + " " + $scope.type);
     var regRequest = {
       method: 'POST',
-      url: 'http://hiccupbackend.herokuapp.com/register',
+      url: 'http://localhost:5000/register',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
@@ -39,12 +41,19 @@ angular.module('myApp.registerview', ['ngRoute'])
         email: email,
         password: password,
         type: $scope.type
+      },
+      transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
       }
     };
     console.log(regRequest);
     $http(regRequest).then(function success(response) {
       if(response.data == "registered") {
         console.log("We win!");
+        $location.path('/login');
       }
       else {
         console.log("We lose!");

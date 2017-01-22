@@ -87,12 +87,12 @@
             <li ng-repeat="poll in livepolls">
               <div class="poll"><strong>{{poll.title}}</strong>
                 <br>{{poll.text}}<br>
-                <button class="btn btn-primary like-btn" ng-click="pressLike($index)" style="float: left;">👍</button>
-                <button class="btn btn-primary like-btn" ng-click="pressDislike($index)" style="float: right;">👎</button>
+                <button class="btn btn-primary like-btn" ng-click="pressLike($index)" style="float: left;">👍<span class="badge">{{poll.up.length-1}}</span></button>
+                <button class="btn btn-primary like-btn" ng-click="pressDislike($index)" style="float: right;">👎<span class="badge">{{poll.down.length-1}}</span></button>
               </div>
             </li>
           </ul>
-          <form class="bottom">
+          <form class="bottom" style="display: none;" id="poll_form">
             <div class="row">
               <div class="col-xs-5">
                 <input type="text" id="poll_title" placeholder="Poll Title"/>

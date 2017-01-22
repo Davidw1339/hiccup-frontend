@@ -11,8 +11,18 @@ angular.module('myApp.mainview', ['ngRoute'])
 
 .controller('MainController', ['$scope', '$location', '$route', '$http', 'authentication', function($scope, $location, $route, $http, authentication) {
   // console.log(authentication.myFunc(255));
+  if(authentication.getUser().name == "none") {
+    $location.path('/login');
+  }
+  else {
+    if(authentication.getUser().type != "hacker") {
+      $('#poll_form').show();
+    }
+  }
+
   $scope.livepolls = [];
   $scope.liveposts = [];
+  // get live posts
   $http({
     method: 'GET',
     url: 'http://localhost:5000/get_messages'
@@ -27,7 +37,7 @@ angular.module('myApp.mainview', ['ngRoute'])
     }, function errorCallback(response) {
       console.log("LOL RIP YOU SUCK");
     });
-
+  //get live polls
   $http({
     method: 'GET',
     url: 'http://localhost:5000/get_poll'
@@ -63,8 +73,8 @@ angular.module('myApp.mainview', ['ngRoute'])
   $scope.addPoll = function() {
     var title = $("#poll_title").val();
     var text = $("#poll_text").val();
-    $("#poll_title").val() = "";
-    $("#poll_text").val() = "";
+    $("#poll_title").val("");
+    $("#poll_text").val("");
     var id = 0;
     if($scope.livepolls.length > 0) {
       id = $scope.livepolls[$scope.livepolls.length - 1].id + 1;
@@ -75,7 +85,9 @@ angular.module('myApp.mainview', ['ngRoute'])
     var poll = {
       id: id,
       title: title,
-      text: text
+      text: text,
+      up: "0",
+      down: "0"
     };
     $http({
       method: 'POST',
@@ -125,14 +137,57 @@ angular.module('myApp.mainview', ['ngRoute'])
   }
 
   $scope.pressLike = function(index) {
-    console.log(index);
-    $scope.livepolls[index].up += 1;
-    
+    $scope.livepolls[index].up += "1";
+    console.log($scope.livepolls[index].up);
+    $http({
+      method: 'POST',
+      url: 'http://localhost:5000/up_vote',
+      // url: 'http://hiccupbackend.herokuapp.com/add_message',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        id: index,
+        up: $scope.livepolls[index].up
+      },
+      transformRequest: function(obj) {
+            var str = [];
+            for(var p in obj)
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            return str.join("&");
+          }
+    }).then(function success(response) {
+      console.log("success");
+    }, function error(response) {
+      console.log("rip, we got register error");
+    });
   }
 
   $scope.pressDislike = function(index) {
     console.log(index);
-    $scope.livepolls[index].down += 1;
+    $scope.livepolls[index].down += "1";
+    $http({
+      method: 'POST',
+      url: 'http://localhost:5000/down_vote',
+      // url: 'http://hiccupbackend.herokuapp.com/add_message',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        id: index,
+        down: $scope.livepolls[index].down
+      },
+      transformRequest: function(obj) {
+            var str = [];
+            for(var p in obj)
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            return str.join("&");
+          }
+    }).then(function success(response) {
+      console.log("success");
+    }, function error(response) {
+      console.log("rip, we got register error");
+    });
   }
 
 }]);
