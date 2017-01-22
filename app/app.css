@@ -5,6 +5,9 @@ body, html{
 body {
   overflow: hidden;
 }
+hr {
+  margin: 5px;
+}
 .banner {
   text-align: center;
   margin-top: 125px;

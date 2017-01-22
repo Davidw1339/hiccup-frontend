@@ -28,23 +28,13 @@
     <div class="col-sm-4 full-height">
       <div class="panel panel-primary" style="border: 1px solid #2196f3;">
         <div class="panel-heading">
-          <h3 class="panel-title">Announcements<button class="btn btn-primary right-btn">+</button></h3>
+          <h3 class="panel-title">Announcements
+            <button type="button" class="btn btn-primary right-btn" data-toggle="modal" data-target="#announceModal">+</button></h3>
         </div>
         <div class="panel-body" style="height: 80%">
           <ul>
-            <li>
-              Hey everyone, all systems are a go - invite.boilermake.org and
-              live.boilermake.org are up for slack invites, and live schedule
-              respectively.
-            </li>
-            <li>
-              A roll of paper towels is available at the check in
-              table for those in need
-            </li>
-            <li>
-              If you are broadcasting a wireless network, PLEASE turn it off so
-              that the spectrum isn't congested! Your fellow hackers
-              will thank you :)
+            <li ng-repeat="announcement in announcements">
+              <strong style="font-size: 16px;">{{announcement.text}}</strong><br>{{announcement.time}}
             </li>
           </ul>
         </div>
@@ -110,4 +100,28 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal -->
+  <div id="announceModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">New Announcement</h4>
+          <hr>
+        </div>
+        <div class="modal-body">
+          <input type="text" class="form-control" id="announcebox" placeholder="New Announcement"/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="newAnnouncement()">Save</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
 </div>

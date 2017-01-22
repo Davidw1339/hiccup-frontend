@@ -10,7 +10,7 @@ angular.module('myApp.mainview', ['ngRoute'])
 }])
 
 .controller('MainController', ['$scope', '$location', '$route', '$http', 'authentication', function($scope, $location, $route, $http, authentication) {
-  // console.log(authentication.myFunc(255));
+  // Control who gets what permissions and whether we need to log in
   var user = authentication.getUser();
   if(user.name == "none") {
     // $location.path('/login');
@@ -24,9 +24,32 @@ angular.module('myApp.mainview', ['ngRoute'])
       $('.right-btn').show();
     }
   }
+  $('.right-btn').show();
 
   $scope.livepolls = [];
   $scope.liveposts = [];
+  $scope.announcements = [];
+  $scope.schedule = [];
+  // get announcements
+  $http({
+    method: 'GET',
+    url: 'http://localhost:5000/get_announce'
+  }).then(function successCallback(response) {
+      console.log(response.data);
+      response.data.forEach(function(announce) {
+        var time = new Date(0);
+        time.setUTCMilliseconds(announce.time);
+        time = time.toString("h:mm a").substring(0, 25);
+        // time = time.getHours() + ":" + time.getMinutes()
+        // var time = (new Date(announce.time * 1000)).toString();
+        $scope.announcements.push({
+          'text': announce.text,
+          'time': time
+        });
+      });
+    }, function errorCallback(response) {
+      console.log("LOL RIP YOU SUCK");
+    });
   // get live posts
   $http({
     method: 'GET',
@@ -74,6 +97,38 @@ angular.module('myApp.mainview', ['ngRoute'])
       }
     }
   });
+
+  $scope.newAnnouncement = function() {
+    var announcement = {
+      text: $("#announcebox").val(),
+      time: Date.now()
+    };
+    $("#announcebox").val("");
+    $http({
+      method: 'POST',
+      url: 'http://localhost:5000/add_announce',
+      // url: 'http://hiccupbackend.herokuapp.com/add_message',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: announcement,
+      transformRequest: function(obj) {
+            var str = [];
+            for(var p in obj)
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            return str.join("&");
+          }
+    }).then(function success(response) {
+        console.log("success");
+    }, function error(response) {
+      console.log("rip, we got register error");
+    });
+    var time = new Date(0);
+    time.setUTCMilliseconds(announcement.time);
+    time = time.toString("h:mm a").substring(0, 25);
+    announcement.time = time;
+    $scope.announcements.push(announcement);
+  }
 
   $scope.addPoll = function() {
     var title = $("#poll_title").val();
