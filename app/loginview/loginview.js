@@ -9,10 +9,30 @@ angular.module('myApp.loginview', ['ngRoute'])
   });
 }])
 
-.controller('LoginController', ['$scope', '$location', '$route', function($scope, $location, $route) {
+.controller('LoginController', ['$scope', '$location', '$route', '$http', 'authentication', function($scope, $location, $route, $http, authentication) {
   $scope.onLogin = function() {
     //move to main page
-    $location.path("/main");
+    var email = $('#inputEmail').val();
+    var password = $('#inputPassword').val();
+    console.log(email + " " + password);
+    $http({
+      method: 'GET',
+      url: 'http://127.0.0.1:5000/login?email=' + email + "&password=" + password
+    }).then(function successCallback(response) {
+        if(response.data != "no-auth") {
+          authentication.setUser({
+            name: email,
+            type: response.data
+          });
+          $location.path("/main");
+        }
+        else {
+          $('#error').show();
+        }
+      }, function errorCallback(response) {
+        $('#error').show();
+      });
+    //
   }
   $scope.onRegister = function() {
     console.log("does it work?")

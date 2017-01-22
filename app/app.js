@@ -9,6 +9,18 @@ angular.module('myApp', [
   'myApp.sponsorview',
   'myApp.version'
 ]).
+service('authentication', function() {
+    this.user = {
+      name: "none",
+      type: "hacker"
+    };
+    this.getUser = function() {
+      return this.user;
+    }
+    this.setUser = function(x) {
+      this.user = x;
+    }
+}).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
 

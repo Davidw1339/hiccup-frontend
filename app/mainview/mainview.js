@@ -9,7 +9,9 @@ angular.module('myApp.mainview', ['ngRoute'])
   });
 }])
 
-.controller('MainController', ['$scope', '$location', '$route', function($scope, $location, $route) {
+.controller('MainController', ['$scope', '$location', '$route', '$http', 'authentication', function($scope, $location, $route, $http, authentication) {
+  // console.log(authentication.myFunc(255));
+  console.log(authentication);
   $scope.liveposts = [
     {
       username: "hi boy",
@@ -22,7 +24,7 @@ angular.module('myApp.mainview', ['ngRoute'])
       var post = (e.target.value);
       if (post){
         $scope.addPost({
-          username: "Test Username",
+          username: authentication.getUser().name,
           text: post
         });
         e.target.value = "";

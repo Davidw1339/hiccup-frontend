@@ -1,16 +1,22 @@
 <div class="container-fluid" id="reg-fields">
       <h1 class="banner">Registration</h1>
-      <form class="form-horizontal">
+      <form class="form-horizontal" method="post" action="http://localhost:5000/register">
         <!-- <label for="inputEmail" class="sr-only">Email</label> -->
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+        <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email" required autofocus>
         <!-- <label for="inputPassword" class="sr-only">Password</label> -->
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
 
         <div>
           <h4>Register As: </h4>
-          <button type="button" class="btn btn-primary">Hacker</button>
-          <button type="button" class="btn btn-primary">Organiser</button>
-          <button type="button" class="btn btn-primary">Sponsor</button>
+          <label class="radio-inline"><input type="radio" name="type">Hacker</label>
+          <label class="radio-inline"><input type="radio" name="type">Organizer</label>
+          <label class="radio-inline"><input type="radio" name="type">Sponsor</label>
+          <!-- <button type="submit" class="btn btn-primary" ng-click="hacker()">Hacker</button> -->
+          <!-- <button type="submit" class="btn btn-primary" ng-click="organizer()">Organizer</button> -->
+          <!-- <button type="submit" class="btn btn-primary" ng-click="sponsor()">Sponsor</button> -->
+          <br>
+          <br>
+          <button type="submit" class="btn btn-primary">Register</button>
         </div>
       </form>
 </div>
