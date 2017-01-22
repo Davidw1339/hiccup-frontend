@@ -33,7 +33,7 @@ angular.module('myApp.mainview', ['ngRoute'])
   // get announcements
   $http({
     method: 'GET',
-    url: 'http://localhost:5000/get_announce'
+    url: 'https://hiccupbackend.herokuapp.com/get_announce'
   }).then(function successCallback(response) {
       console.log(response.data);
       response.data.forEach(function(announce) {
@@ -53,7 +53,7 @@ angular.module('myApp.mainview', ['ngRoute'])
   // get live posts
   $http({
     method: 'GET',
-    url: 'http://localhost:5000/get_messages'
+    url: 'https://hiccupbackend.herokuapp.com/get_messages'
   }).then(function successCallback(response) {
       console.log(response.data);
       response.data.forEach(function(message) {
@@ -68,7 +68,7 @@ angular.module('myApp.mainview', ['ngRoute'])
   //get live polls
   $http({
     method: 'GET',
-    url: 'http://localhost:5000/get_poll'
+    url: 'https://hiccupbackend.herokuapp.com/get_poll'
   }).then(function successCallback(response) {
       console.log(response.data);
       response.data.forEach(function(poll) {
@@ -86,7 +86,7 @@ angular.module('myApp.mainview', ['ngRoute'])
   //get events for schedule
   $http({
     method: 'GET',
-    url: 'http://localhost:5000/get_event'
+    url: 'https://hiccupbackend.herokuapp.com/get_event'
   }).then(function successCallback(response) {
       console.log(response.data);
       response.data.forEach(function(event) {
@@ -131,7 +131,7 @@ angular.module('myApp.mainview', ['ngRoute'])
     $("#timebox").val("");
     $http({
       method: 'POST',
-      url: 'http://localhost:5000/add_event',
+      url: 'https://hiccupbackend.herokuapp.com/add_event',
       // url: 'http://hiccupbackend.herokuapp.com/add_message',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -160,7 +160,7 @@ angular.module('myApp.mainview', ['ngRoute'])
     $("#announcebox").val("");
     $http({
       method: 'POST',
-      url: 'http://localhost:5000/add_announce',
+      url: 'https://hiccupbackend.herokuapp.com/add_announce',
       // url: 'http://hiccupbackend.herokuapp.com/add_message',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -205,7 +205,7 @@ angular.module('myApp.mainview', ['ngRoute'])
     };
     $http({
       method: 'POST',
-      url: 'http://localhost:5000/add_poll',
+      url: 'https://hiccupbackend.herokuapp.com/add_poll',
       // url: 'http://hiccupbackend.herokuapp.com/add_message',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -228,7 +228,7 @@ angular.module('myApp.mainview', ['ngRoute'])
   $scope.addPost = function(newPost) {
     $http({
       method: 'POST',
-      url: 'http://localhost:5000/add_message',
+      url: 'https://hiccupbackend.herokuapp.com/add_message',
       // url: 'http://hiccupbackend.herokuapp.com/add_message',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -255,7 +255,7 @@ angular.module('myApp.mainview', ['ngRoute'])
     console.log($scope.livepolls[index].up);
     $http({
       method: 'POST',
-      url: 'http://localhost:5000/up_vote',
+      url: 'https://hiccupbackend.herokuapp.com/up_vote',
       // url: 'http://hiccupbackend.herokuapp.com/add_message',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -282,7 +282,7 @@ angular.module('myApp.mainview', ['ngRoute'])
     $scope.livepolls[index].down += "1";
     $http({
       method: 'POST',
-      url: 'http://localhost:5000/down_vote',
+      url: 'https://hiccupbackend.herokuapp.com/down_vote',
       // url: 'http://hiccupbackend.herokuapp.com/add_message',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
